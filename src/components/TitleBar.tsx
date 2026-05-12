@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { getCurrentWindow } from '@tauri-apps/api/window';
+import titleBarIcon from '../../src-tauri/icons/32x32.png';
 import { useTranslation } from '../i18n';
 import { useAppStore } from '../store';
 
@@ -25,9 +26,14 @@ export default function TitleBar() {
   return (
     <header className="flex h-12 items-center border-b border-gray-200 bg-white px-3 dark:border-gray-700 dark:bg-gray-900">
       <div className="flex items-center gap-2" data-tauri-drag-region>
-        <svg width="18" height="18" viewBox="0 0 24 24" className="text-brand-600 dark:text-brand-500">
-          <path fill="currentColor" d="M6 3h9l5 5v13H6zm8 1.5V9h4.5zM8 12h8v1.5H8zm0 3h8V16.5H8z" />
-        </svg>
+        <img
+          src={titleBarIcon}
+          alt=""
+          width={18}
+          height={18}
+          className="h-[18px] w-[18px] shrink-0 object-contain"
+          draggable={false}
+        />
         <span className="text-sm font-semibold text-gray-800 dark:text-gray-100">DocShift</span>
       </div>
       <div className="flex-1" data-tauri-drag-region />

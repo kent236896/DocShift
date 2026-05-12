@@ -142,3 +142,15 @@ cargo tauri dev
 cargo tauri build
 ```
 
+---
+
+## 9. 应用图标
+
+源文件为 **`icon/docShift.png`**。`tauri icon` 要求**正方形** PNG；若为长方形，请先裁切或置于透明正方形画布后再执行：
+
+```bash
+cd src-tauri
+npx tauri icon ../icon/docShift.png -o icons
+```
+
+当前 **`src-tauri/icons/`** 已包含由该源图生成的 `32x32.png`、`128x128.png`、`128x128@2x.png`、`icon.ico`、`icon.icns` 及 Windows / iOS / Android 商店用资源。
