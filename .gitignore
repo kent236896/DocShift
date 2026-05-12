@@ -7,6 +7,10 @@ dist/
 # Rust / Tauri
 src-tauri/target/
 
+# Pandoc binaries exceed GitHub 100MB limit — place locally per README, never commit
+src-tauri/binaries/*.exe
+src-tauri/binaries/pandoc
+
 # Logs & debug
 *.log
 npm-debug.log*

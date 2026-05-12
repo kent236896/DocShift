@@ -14,12 +14,12 @@ DocShift 是一个基于 **Tauri 2 + React 18 + TypeScript** 的桌面文档格�
 cargo install tauri-cli
 ```
 
-4. Pandoc（Windows）  
-   从 <https://github.com/jgm/pandoc/releases> 下载后，将可执行文件放到：
+4. **Pandoc（Windows，需自行下载，勿提交到 Git）**  
+   GitHub 单文件限制为 100MB，Pandoc 安装包约 220MB，**仓库中不包含该 exe**。请从 <https://github.com/jgm/pandoc/releases> 下载 Windows x86_64 的 `pandoc-*-x86_64-pc-windows-msvc.zip`，解压后将其中的 **`pandoc.exe` 重命名**为：
 
 `src-tauri/binaries/pandoc-x86_64-pc-windows-msvc.exe`
 
-> 当前项目已按此路径放置二进制。
+（与 `tauri.conf.json` 里 `bundle.externalBin` 约定一致；本地构建/打包前必须存在该文件。）
 
 ---
 
