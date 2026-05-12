@@ -1,0 +1,3 @@
+import { useEffect, useState } from 'react';
+import { useAppStore } from '../store';
+export function useTheme() { const theme = useAppStore((s) => s.settings.theme); const [isDark, setIsDark] = useState(false); useEffect(() => { const mq = window.matchMedia('(prefers-color-scheme: dark)'); const apply = () => { const d = theme === 'dark' || (theme === 'system' && mq.matches); document.documentElement.classList.toggle('dark', d); setIsDark(d); }; apply(); const h = () => apply(); mq.addEventListener('change', h); return () => mq.removeEventListener('change', h); }, [theme]); return { isDark }; }

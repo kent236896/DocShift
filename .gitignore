@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Frontend build
+dist/
+
+# Rust / Tauri
+src-tauri/target/
+
+# Logs & debug
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment (secrets)
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor / IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Optional: uncomment if you prefer not to commit VS Code settings
+# .vscode/
+
+# Optional: local tooling
+.turbo
+.cache

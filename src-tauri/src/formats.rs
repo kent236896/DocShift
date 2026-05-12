@@ -1,0 +1,5 @@
+use std::collections::HashMap;
+
+#[allow(dead_code)]
+pub fn get_extension_to_format_map() -> HashMap<&'static str, &'static str> { let mut map = HashMap::new(); map.insert("docx", "docx"); map.insert("odt", "odt"); map.insert("rtf", "rtf"); map.insert("epub", "epub"); map.insert("pdf", "pdf"); map.insert("md", "markdown"); map.insert("markdown", "markdown"); map.insert("html", "html"); map.insert("htm", "html"); map.insert("rst", "rst"); map.insert("tex", "latex"); map.insert("org", "org"); map.insert("textile", "textile"); map.insert("adoc", "asciidoc"); map.insert("asciidoc", "asciidoc"); map.insert("wiki", "mediawiki"); map.insert("pptx", "pptx"); map.insert("json", "json"); map.insert("csv", "csv"); map.insert("xml", "docbook"); map }
+pub fn is_valid_output_format(fmt: &str) -> bool { matches!(fmt, "docx" | "odt" | "rtf" | "epub" | "pdf" | "html" | "markdown" | "rst" | "latex" | "org" | "textile" | "asciidoc" | "mediawiki" | "pptx" | "beamer" | "revealjs" | "json" | "docbook" | "jats" | "man" | "plain" | "gfm" | "commonmark") }
