@@ -96,6 +96,8 @@ cargo tauri build
 
 ## 6. Microsoft Store 与法律文件
 
+**商店编译与上架步骤（身份、MSI、WebView2 离线模式、签名与上传）** 见专门说明：[`docs/MICROSOFT_STORE_PUBLISH.md`](docs/MICROSOFT_STORE_PUBLISH.md)。
+
 上架 Microsoft Partner Center 时通常需要：
 
 | 用途 | 文件 |

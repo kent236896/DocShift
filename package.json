@@ -7,7 +7,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "vite:dev": "vite",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "store:bundle": "npx tauri build --no-bundle && npx tauri bundle --config src-tauri/tauri.microsoftstore.conf.json -b msi"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.0.0",
