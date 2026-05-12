@@ -1,5 +1,4 @@
 import { useTranslation } from '../i18n';
-import { ALL_INPUT_FORMAT_IDS } from '../formats';
 import { useAppStore } from '../store';
 
 export default function ConversionQueue({ onConvertAll }: { onConvertAll: () => void }) {
@@ -51,25 +50,6 @@ export default function ConversionQueue({ onConvertAll }: { onConvertAll: () => 
               <p className="truncate text-sm text-gray-800 dark:text-gray-100">{q.fileName}</p>
               <span className="shrink-0 text-xs text-gray-500 dark:text-gray-400">{t(`queue.status.${q.status}`)}</span>
             </div>
-            {(q.status === 'pending' || q.status === 'error') && (
-              <div className="mt-2">
-                <label className="mb-1 block text-xs text-gray-600 dark:text-gray-400">{t('queue.inputReader')}</label>
-                <input
-                  list={`pandoc-readers-${q.id}`}
-                  spellCheck={false}
-                  disabled={q.status === 'converting'}
-                  value={q.fromFormat}
-                  onChange={(e) => update(q.id, { fromFormat: e.target.value.trim() || 'markdown' })}
-                  className="w-full rounded border border-gray-300 bg-white px-2 py-1 text-xs text-gray-800 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
-                />
-                <datalist id={`pandoc-readers-${q.id}`}>
-                  {ALL_INPUT_FORMAT_IDS.map((id) => (
-                    <option key={id} value={id} />
-                  ))}
-                </datalist>
-                <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">{t('queue.inputReaderHint')}</p>
-              </div>
-            )}
             <div className="my-2 h-2 rounded bg-gray-200 dark:bg-gray-700">
               <div className="h-2 rounded bg-brand-600 transition-all" style={{ width: `${q.progress}%` }} />
             </div>

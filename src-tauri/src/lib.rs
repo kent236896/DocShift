@@ -6,7 +6,8 @@ use pandoc::{clear_history, convert_file, get_history, get_pandoc_version, list_
 use tauri::Manager;
 
 pub fn run() {
-    env_logger::init();
+    #[cfg(debug_assertions)]
+    let _ = env_logger::try_init();
 
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())

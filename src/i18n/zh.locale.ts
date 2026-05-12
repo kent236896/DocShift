@@ -4,7 +4,7 @@ export default {
   dropzone: {
     title: '将文件拖放到这里',
     subtitle: '或点击浏览文件',
-    hint: '界面列出常用输出格式；Pandoc 还支持更多读者/写入器。扩展名无法识别时可在「设置」设默认 -f，或在队列里为每条任务填写 Pandoc 读者名（与 pandoc --list-input-formats 一致）。',
+    hint: '界面列出常用输出格式；Pandoc 还支持更多读者/写入器。扩展名无法识别时，请在「设置」中填写默认读者（-f），与 pandoc --list-input-formats 中的名称一致。',
     active: '松开即可添加文件',
     unknown: '未知格式'
   },
@@ -38,9 +38,7 @@ export default {
     summary: '共 {{total}} 个文件，完成 {{done}}，失败 {{failed}}',
     status: { pending: '等待中', converting: '转换中...', done: '已完成', error: '失败' },
     progress: '{{percent}}%',
-    fileSize: '{{size}}',
-    inputReader: '输入读者（Pandoc -f）',
-    inputReaderHint: '扩展名无法识别或需特殊读者时，填写与 pandoc -f 一致的名称（如 bibtex、djot）。'
+    fileSize: '{{size}}'
   },
   history: {
     title: '历史记录',
@@ -79,7 +77,7 @@ export default {
     pandocArgsHint:
       '可选。填写 pandoc 命令行参数（写在输入文件名之前）。例如 --toc 生成目录，--number-sections 给标题自动编号。不熟悉可留空。',
     defaultFromFormat: '无法识别扩展名时的默认读者（-f）',
-    defaultFromFormatHint: '拖入文件的扩展名不在内置映射中时使用。可在队列中为单个文件再改。',
+    defaultFromFormatHint: '拖入文件的扩展名不在内置映射中时使用（例如无扩展名或罕见后缀）。',
     about: '关于',
     version: '版本 {{version}}',
     pandocVersion: 'Pandoc {{version}}',

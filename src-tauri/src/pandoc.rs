@@ -6,6 +6,17 @@ use std::sync::Arc;
 use tauri::{AppHandle, Emitter, Manager};
 use tokio::process::Command;
 use tokio::sync::Mutex;
+
+#[cfg(target_os = "windows")]
+const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+
+#[cfg(target_os = "windows")]
+fn hide_child_console(cmd: &mut Command) {
+    cmd.creation_flags(CREATE_NO_WINDOW);
+}
+
+#[cfg(not(target_os = "windows"))]
+fn hide_child_console(_cmd: &mut Command) {}
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct ConversionProgressEvent { pub id: String, pub progress: u8, pub status: String, pub error_message: Option<String>, pub output_path: Option<String> }
@@ -21,6 +32,7 @@ pub async fn convert_file(app: AppHandle, args: ConvertFileArgs) -> Result<Strin
   if let Some(parent) = Path::new(&args.output_path).parent() { tokio::fs::create_dir_all(parent).await.map_err(|e| format!("Failed to create output directory: {}", e))?; }
   let _ = app.emit("conversion_progress", ConversionProgressEvent { id: args.id.clone(), progress: 10, status: "converting".into(), error_message: None, output_path: None });
   let mut cmd = Command::new(pandoc_path(&app));
+  hide_child_console(&mut cmd);
   cmd.arg("-f").arg(&args.from_format).arg("-t").arg(&args.to_format);
   if !args.extra_args.trim().is_empty() {
     for a in args.extra_args.split_whitespace() {
@@ -44,11 +56,32 @@ pub async fn convert_file(app: AppHandle, args: ConvertFileArgs) -> Result<Strin
   }
 }
 #[tauri::command]
-pub async fn get_pandoc_version(app: AppHandle) -> Result<String, String> { let out = Command::new(pandoc_path(&app)).arg("--version").output().await.map_err(|e| format!("Pandoc binary not found. Please reinstall DocShift. {}", e))?; if !out.status.success() { return Err("Failed to query pandoc version".into()); } let s = String::from_utf8_lossy(&out.stdout); Ok(s.lines().next().unwrap_or("pandoc unknown").replace("pandoc ", "").trim().to_string()) }
+pub async fn get_pandoc_version(app: AppHandle) -> Result<String, String> {
+  let mut cmd = Command::new(pandoc_path(&app));
+  hide_child_console(&mut cmd);
+  let out = cmd
+    .arg("--version")
+    .output()
+    .await
+    .map_err(|e| format!("Pandoc binary not found. Please reinstall DocShift. {}", e))?;
+  if !out.status.success() {
+    return Err("Failed to query pandoc version".into());
+  }
+  let s = String::from_utf8_lossy(&out.stdout);
+  Ok(s
+    .lines()
+    .next()
+    .unwrap_or("pandoc unknown")
+    .replace("pandoc ", "")
+    .trim()
+    .to_string())
+}
 
 #[tauri::command]
 pub async fn list_pandoc_output_formats(app: AppHandle) -> Result<Vec<String>, String> {
-  let out = Command::new(pandoc_path(&app))
+  let mut cmd = Command::new(pandoc_path(&app));
+  hide_child_console(&mut cmd);
+  let out = cmd
     .arg("--list-output-formats")
     .output()
     .await
@@ -85,4 +118,23 @@ pub async fn clear_history(app: AppHandle) -> Result<(), String> {
   result
 }
 #[tauri::command]
-pub async fn open_path(path: String) -> Result<(), String> { if !Path::new(&path).exists() { return Err(format!("Path does not exist: {}", path)); } #[cfg(target_os = "windows")] { Command::new("explorer").arg(path).spawn().map_err(|e| format!("Failed to open path: {}", e))?; } #[cfg(target_os = "macos")] { Command::new("open").arg(path).spawn().map_err(|e| format!("Failed to open path: {}", e))?; } #[cfg(all(unix, not(target_os = "macos")))] { Command::new("xdg-open").arg(path).spawn().map_err(|e| format!("Failed to open path: {}", e))?; } Ok(()) }
+pub async fn open_path(path: String) -> Result<(), String> {
+  if !Path::new(&path).exists() {
+    return Err(format!("Path does not exist: {}", path));
+  }
+  #[cfg(target_os = "windows")]
+  {
+    let mut cmd = Command::new("explorer");
+    hide_child_console(&mut cmd);
+    cmd.arg(path).spawn().map_err(|e| format!("Failed to open path: {}", e))?;
+  }
+  #[cfg(target_os = "macos")]
+  {
+    Command::new("open").arg(path).spawn().map_err(|e| format!("Failed to open path: {}", e))?;
+  }
+  #[cfg(all(unix, not(target_os = "macos")))]
+  {
+    Command::new("xdg-open").arg(path).spawn().map_err(|e| format!("Failed to open path: {}", e))?;
+  }
+  Ok(())
+}
