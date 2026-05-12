@@ -77,6 +77,15 @@ export default function SettingsPanel() {
           onChange={(e) => u({ maxConcurrent: Math.min(10, Math.max(1, Number(e.target.value) || 1)) })}
           className="mb-3 w-full rounded border border-gray-300 bg-white px-2 py-1 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
         />
+        <label className="mb-1 block text-xs text-gray-600 dark:text-gray-400">{t('settings.defaultFromFormat')}</label>
+        <p className="mb-1 text-xs text-gray-500 dark:text-gray-400">{t('settings.defaultFromFormatHint')}</p>
+        <input
+          type="text"
+          spellCheck={false}
+          value={s.defaultFromFormat ?? 'markdown'}
+          onChange={(e) => u({ defaultFromFormat: e.target.value.trim() || 'markdown' })}
+          className="mb-3 w-full rounded border border-gray-300 bg-white px-2 py-1 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+        />
         <label className="mb-2 flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
           <input type="checkbox" checked={s.openAfterDone} onChange={(e) => u({ openAfterDone: e.target.checked })} />
           {t('settings.openAfterDone')}

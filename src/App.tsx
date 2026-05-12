@@ -14,13 +14,13 @@ import { useTheme } from './hooks/useTheme';
 import { useTranslation } from './i18n';
 import { useAppStore } from './store';
 
-function queuePaths(paths: string[], toFormat: string) {
+function queuePaths(paths: string[], toFormat: string, defaultFrom: string) {
   return paths.map((p) => ({
     inputPath: p,
     outputPath: '',
     fileName: p.split(/[\\/]/).pop() || p,
     fileSize: 0,
-    fromFormat: detectFormatFromExtension(p) ?? 'markdown',
+    fromFormat: detectFormatFromExtension(p) ?? defaultFrom,
     toFormat
   }));
 }
@@ -34,6 +34,8 @@ export default function App() {
   const to = useAppStore((s) => s.selectedToFormat);
   const setTo = useAppStore((s) => s.setSelectedToFormat);
   const q = useAppStore((s) => s.queue);
+  const settings = useAppStore((s) => s.settings);
+  const defaultFrom = (settings.defaultFromFormat ?? 'markdown').trim() || 'markdown';
   const { startConversion, isConverting } = useConversion();
 
   const closeOverlay = useCallback(() => setPanel('queue'), [setPanel]);
@@ -43,9 +45,9 @@ export default function App() {
     (paths: string[]) => {
       const unique = [...new Set(paths)];
       if (!unique.length) return;
-      add(queuePaths(unique, to));
+      add(queuePaths(unique, to, defaultFrom));
     },
-    [add, to]
+    [add, defaultFrom, to]
   );
 
   useTauriFileDrop(addPaths);
@@ -58,7 +60,7 @@ export default function App() {
           const s = await open({ multiple: true, directory: false });
           if (!s) return;
           const paths = [...new Set(Array.isArray(s) ? s : [s])];
-          add(queuePaths(paths, to));
+          add(queuePaths(paths, to, defaultFrom));
         })();
       }
       if (e.ctrlKey && e.key === 'Enter') {
@@ -79,7 +81,7 @@ export default function App() {
     };
     window.addEventListener('keydown', h);
     return () => window.removeEventListener('keydown', h);
-  }, [add, closeOverlay, overlayOpen, setPanel, startConversion, to]);
+  }, [add, closeOverlay, defaultFrom, overlayOpen, setPanel, startConversion, to]);
 
   return (
     <div
@@ -92,7 +94,7 @@ export default function App() {
           <div className="md:col-span-2 rounded border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800">
             <FormatSelector value={to} onChange={setTo} disabled={isConverting} />
           </div>
-          <PresetManager fromFormat={q[0]?.fromFormat ?? 'markdown'} toFormat={to} />
+          <PresetManager fromFormat={q[0]?.fromFormat ?? defaultFrom} toFormat={to} />
         </div>
         <div className="min-h-0 flex-1 overflow-y-auto rounded border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800">
           <ConversionQueue onConvertAll={() => void startConversion()} />

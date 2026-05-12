@@ -5,5 +5,5 @@
   "identifier": "com.docshift.app",
   "build": { "beforeDevCommand": "npm run vite:dev", "devUrl": "http://localhost:1420", "beforeBuildCommand": "npm run build", "frontendDist": "../dist" },
   "app": { "windows": [{ "title": "DocShift", "width": 900, "height": 640, "minWidth": 800, "minHeight": 580, "resizable": true, "decorations": false, "center": true, "visible": true }], "security": { "csp": null } },
-  "bundle": { "active": true, "targets": "all", "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"], "externalBin": ["binaries/pandoc"], "windows": { "wix": {}, "nsis": {}, "webviewInstallMode": { "type": "embedBootstrapper" } }, "resources": ["binaries/*"] }
+  "bundle": { "active": true, "targets": "all", "copyright": "Copyright (c) 2026 DocShift contributors", "license": "MIT", "licenseFile": "../LICENSE", "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"], "externalBin": ["binaries/pandoc"], "windows": { "wix": {}, "nsis": {}, "webviewInstallMode": { "type": "embedBootstrapper" } }, "resources": ["binaries/*", "../PRIVACY.md", "../THIRD_PARTY_NOTICES.md", "../LICENSE", "../COPYRIGHT.md"] }
 }

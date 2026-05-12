@@ -4,7 +4,7 @@ export default {
   dropzone: {
     title: '将文件拖放到这里',
     subtitle: '或点击浏览文件',
-    hint: '支持 40+ 格式，包括 Word、PDF、Markdown、EPUB 等',
+    hint: '界面列出常用输出格式；Pandoc 还支持更多读者/写入器。扩展名无法识别时可在「设置」设默认 -f，或在队列里为每条任务填写 Pandoc 读者名（与 pandoc --list-input-formats 一致）。',
     active: '松开即可添加文件',
     unknown: '未知格式'
   },
@@ -12,6 +12,18 @@ export default {
     selectOutput: '输出格式',
     searchPlaceholder: '搜索格式...',
     common: '常用格式',
+    addMore: '更多格式',
+    pickFormatTitle: '选择输出格式（Pandoc --list-output-formats）',
+    searchFormats: '搜索格式名称…',
+    loadingFormats: '正在从 Pandoc 读取格式列表…',
+    noMatches: '没有匹配的格式',
+    closeModal: '关闭',
+    addedGroup: '已添加',
+    otherGroup: '其他',
+    addSelected: '添加选中（{{count}}）',
+    selectAllFiltered: '全选当前列表',
+    clearSelection: '清除选择',
+    selectedCount: '已选 {{count}} 项',
     groups: { documents: '文档', markup: '标记与文本', presentations: '演示文稿', data: '数据与其他' }
   },
   queue: {
@@ -26,7 +38,9 @@ export default {
     summary: '共 {{total}} 个文件，完成 {{done}}，失败 {{failed}}',
     status: { pending: '等待中', converting: '转换中...', done: '已完成', error: '失败' },
     progress: '{{percent}}%',
-    fileSize: '{{size}}'
+    fileSize: '{{size}}',
+    inputReader: '输入读者（Pandoc -f）',
+    inputReaderHint: '扩展名无法识别或需特殊读者时，填写与 pandoc -f 一致的名称（如 bibtex、djot）。'
   },
   history: {
     title: '历史记录',
@@ -64,6 +78,8 @@ export default {
     pandocArgs: '额外 Pandoc 参数',
     pandocArgsHint:
       '可选。填写 pandoc 命令行参数（写在输入文件名之前）。例如 --toc 生成目录，--number-sections 给标题自动编号。不熟悉可留空。',
+    defaultFromFormat: '无法识别扩展名时的默认读者（-f）',
+    defaultFromFormatHint: '拖入文件的扩展名不在内置映射中时使用。可在队列中为单个文件再改。',
     about: '关于',
     version: '版本 {{version}}',
     pandocVersion: 'Pandoc {{version}}',

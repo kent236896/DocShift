@@ -2,7 +2,7 @@ mod pandoc;
 mod history;
 mod formats;
 
-use pandoc::{clear_history, convert_file, get_history, get_pandoc_version, open_path};
+use pandoc::{clear_history, convert_file, get_history, get_pandoc_version, list_pandoc_output_formats, open_path};
 use tauri::Manager;
 
 pub fn run() {
@@ -15,6 +15,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             convert_file,
             get_pandoc_version,
+            list_pandoc_output_formats,
             get_history,
             clear_history,
             open_path,

@@ -1,4 +1,4 @@
-use crate::formats::is_valid_output_format;
+use crate::formats::{is_valid_input_format, is_valid_output_format};
 use crate::history::{HistoryDb, HistoryRecord};
 use serde::{Deserialize, Serialize};
 use std::path::Path;
@@ -16,7 +16,8 @@ fn pandoc_path(app: &AppHandle) -> String { if let Ok(res) = app.path().resource
 #[tauri::command]
 pub async fn convert_file(app: AppHandle, args: ConvertFileArgs) -> Result<String, String> {
   if !Path::new(&args.input_path).exists() { return Err(format!("Input file not found: {}", args.input_path)); }
-  if !is_valid_output_format(&args.to_format) { return Err(format!("Unsupported output format: {}", args.to_format)); }
+  if !is_valid_input_format(&args.from_format) { return Err(format!("Unsupported or invalid input format (-f): {}", args.from_format)); }
+  if !is_valid_output_format(&args.to_format) { return Err(format!("Unsupported or invalid output format (-t): {}", args.to_format)); }
   if let Some(parent) = Path::new(&args.output_path).parent() { tokio::fs::create_dir_all(parent).await.map_err(|e| format!("Failed to create output directory: {}", e))?; }
   let _ = app.emit("conversion_progress", ConversionProgressEvent { id: args.id.clone(), progress: 10, status: "converting".into(), error_message: None, output_path: None });
   let mut cmd = Command::new(pandoc_path(&app));
@@ -44,6 +45,28 @@ pub async fn convert_file(app: AppHandle, args: ConvertFileArgs) -> Result<Strin
 }
 #[tauri::command]
 pub async fn get_pandoc_version(app: AppHandle) -> Result<String, String> { let out = Command::new(pandoc_path(&app)).arg("--version").output().await.map_err(|e| format!("Pandoc binary not found. Please reinstall DocShift. {}", e))?; if !out.status.success() { return Err("Failed to query pandoc version".into()); } let s = String::from_utf8_lossy(&out.stdout); Ok(s.lines().next().unwrap_or("pandoc unknown").replace("pandoc ", "").trim().to_string()) }
+
+#[tauri::command]
+pub async fn list_pandoc_output_formats(app: AppHandle) -> Result<Vec<String>, String> {
+  let out = Command::new(pandoc_path(&app))
+    .arg("--list-output-formats")
+    .output()
+    .await
+    .map_err(|e| format!("Pandoc binary not found. Please reinstall DocShift. {}", e))?;
+  if !out.status.success() {
+    let err = String::from_utf8_lossy(&out.stderr).trim().to_string();
+    return Err(if err.is_empty() { "pandoc --list-output-formats failed".into() } else { err });
+  }
+  let mut v: Vec<String> = String::from_utf8_lossy(&out.stdout)
+    .lines()
+    .map(|l| l.trim().to_string())
+    .filter(|l| !l.is_empty())
+    .collect();
+  v.sort();
+  v.dedup();
+  Ok(v)
+}
+
 #[tauri::command]
 pub async fn get_history(app: AppHandle) -> Result<Vec<crate::history::HistoryRecord>, String> {
   let db: tauri::State<'_, Arc<Mutex<HistoryDb>>> = app.state();

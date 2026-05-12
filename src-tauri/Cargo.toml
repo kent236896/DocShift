@@ -2,6 +2,8 @@
 name = "docshift"
 version = "1.0.0"
 edition = "2021"
+license = "MIT"
+description = "Local document format converter (Pandoc GUI)"
 
 [lib]
 name = "docshift_lib"
