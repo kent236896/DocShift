@@ -1,76 +1,90 @@
-# DocShift — Privacy Policy
+# DocMorph — Privacy Policy
 
-**Effective date:** 2026-05-12  
-**Applies to:** DocShift desktop application (Microsoft Windows builds distributed via the Microsoft Store or other channels).
+**Effective date:** May 12, 2026  
+**Last updated:** May 19, 2026  
+**Applies to:** DocMorph desktop application for Microsoft Windows (including builds distributed through the Microsoft Store and other channels).
 
-Replace bracketed placeholders before publishing: **[Your legal name or company]** and **[contact email]**.
-
----
-
-## Summary (English)
-
-DocShift runs **on your device**. It **does not** send your documents, file paths, or conversion history to our servers—we **do not operate** analytics, crash reporting, or advertising SDKs in the current open-source configuration. Optional OS features (e.g. Microsoft Store, Windows Update, WebView2) are governed by Microsoft’s policies.
+**Privacy policy URL (for Microsoft Partner Center):**  
+`https://github.com/kent236896/DocShift/blob/main/PRIVACY.md`
 
 ---
 
-## 摘要（中文）
+## Summary
 
-DocShift 在**您的电脑上本地运行**。在当前开源配置下，应用**不会**将您的文档内容、文件路径或转换历史上传到我们的服务器；我们**未集成**用于统计、广告或崩溃上报的第三方 SDK。您使用的 Windows、Microsoft Store、WebView2 等由 **Microsoft** 按其政策处理。
-
----
-
-## 1. 控制者与适用范围
-
-- **控制者：** 唐昆。  
-- **适用范围：** 本政策仅说明 **DocShift 应用本身** 对您信息的处理方式，不包括您通过本应用打开或生成的第三方文件所适用的其他服务条款。
+DocMorph runs **entirely on your device**. In the current open-source release, it **does not** upload your documents, file paths, or conversion history to our servers. We **do not** operate analytics, crash reporting, or advertising SDKs in this configuration. Optional platform services (for example Microsoft Store, Windows Update, and WebView2) are governed by **Microsoft’s** policies.
 
 ---
 
-## 2. DocShift 收集与处理的数据
+## 1. Data controller and scope
 
-### 2.1 本地处理
-
-- 您选择用于转换的**文件**仅在本地由应用与内置/自带的 **Pandoc** 进程读取与写出；**不会**因 DocShift 默认行为而自动上传到 [Your legal name or company] 的服务器。
-
-### 2.2 本地存储（历史记录）
-
-- 应用可能在您的用户数据目录下保存 **SQLite 数据库**（例如转换历史：输入/输出路径、格式、成功或失败状态等），**仅存储在您的设备上**。  
-- 卸载应用或使用应用内“清空历史”等功能时，可按应用设计删除或保留这些数据；具体以各版本行为为准。
-
-### 2.3 无默认联网分析
-
-- 当前代码库中**未包含**向 [Your legal name or company] 回传使用行为、文档内容或目录结构的遥测模块。若您将来自行修改软件并加入联网功能，应**单独更新**本隐私政策并在 Microsoft Partner Center 中更新隐私声明 URL。
+- **Data controller:** Tang Kun (唐昆).  
+- **Scope:** This policy describes how the **DocMorph application** handles information. It does not govern third-party services or websites that you may access through files you open or create with the app.
 
 ---
 
-## 3. 第三方与系统组件
+## 2. Information we process
 
-- **Pandoc：** 作为独立程序在本地执行；其许可为 **GPL-2.0-or-later**，见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。  
-- **Microsoft：** 通过 Microsoft Store 分发时，Microsoft 可能根据其政策处理购买、更新、诊断等与 Store 相关的数据；请参阅 [Microsoft 隐私声明](https://privacy.microsoft.com/)。  
-- **WebView2：** 本应用 UI 基于 WebView2；请参阅 Microsoft 关于 WebView2 的文档与隐私说明。
+### 2.1 Files you choose to convert
 
----
+Files you select for conversion are read and written **only on your computer**, by DocMorph and by the bundled **Pandoc** (and, when exporting to PDF, **Typst**) processes invoked locally. DocMorph does **not** transmit file contents to the data controller’s servers by default.
 
-## 4. 儿童
+### 2.2 Conversion history (local storage)
 
-本应用为通用文档工具，不面向 13 岁以下儿童收集个人信息。若您认为我们无意中处理了儿童信息，请通过下方联系方式与我们联系。
+The app may store a **SQLite database** in your Windows user application data folder (for example conversion history: input/output paths, formats, success or failure, and timestamps). This data **remains on your device**. You can clear history from within the app where that feature is available. Uninstalling the app may leave or remove this data depending on Windows and the version you use.
 
----
+### 2.3 No built-in telemetry
 
-## 5. 您的权利与联系方式
-
-在适用法律允许的范围内，您可就本政策或个人信息处理联系我们：
-
-- **电子邮箱：** kent.neo9527@gmail.com 
+The published source code for DocMorph **does not include** modules that send usage analytics, document content, or folder listings to the data controller. If you build or distribute a modified version with network features, you must update this privacy policy and the URL you provide in Microsoft Partner Center.
 
 ---
 
-## 6. 变更
+## 3. Third parties and system components
 
-我们可能因功能或法律要求更新本政策。更新后的版本将发布于与本应用相同的公开位置（例如您为 Microsoft Store 提供的隐私政策 URL）。重大变更建议通过应用内说明或 Store 说明告知用户。
+| Component | Role |
+|-----------|------|
+| **Pandoc** | Runs as a separate local program. License: GPL-2.0-or-later. See [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md). |
+| **Typst** | Used locally for PDF export when applicable. See [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md). |
+| **Microsoft Store / Windows** | May process purchase, update, and diagnostics data according to [Microsoft Privacy Statement](https://privacy.microsoft.com/). |
+| **WebView2** | Renders the user interface; subject to Microsoft’s WebView2 and Windows terms and privacy documentation. |
 
 ---
 
-## 7. Disclaimer
+## 4. Legal bases and retention (where applicable)
 
-This policy describes the open-source DocShift project as configured in this repository. **It is not legal advice.** For Store obligations in your jurisdiction, consult qualified counsel and Microsoft Partner Center documentation.
+Where privacy laws require a legal basis, we process the above information to **provide the conversion service you request** on your device. Local history is kept until you delete it or uninstall the app, unless a longer period is required by law.
+
+---
+
+## 5. Children
+
+DocMorph is a general document conversion tool. It is **not directed** at children under 13, and we do not knowingly collect personal information from children. If you believe a child’s information was processed in connection with the app, contact us using the details below.
+
+---
+
+## 6. Your rights and contact
+
+Depending on your location, you may have rights to access, correct, delete, or restrict processing of personal information, or to lodge a complaint with a supervisory authority.
+
+**Contact:**  
+- **Email:** kent.neo9527@gmail.com  
+- **Data controller:** Tang Kun (唐昆)
+
+We will respond to reasonable requests within the timeframes required by applicable law.
+
+---
+
+## 7. International transfers
+
+DocMorph is designed for local processing on your device. We do not operate servers that receive your document content in the default configuration. If that changes in a future version, this policy will be updated.
+
+---
+
+## 8. Changes to this policy
+
+We may update this policy when features or legal requirements change. The current version will be posted at the public URL above (and, where applicable, linked from the Microsoft Store listing). Material changes may also be described in release notes or Store update descriptions.
+
+---
+
+## 9. Disclaimer
+
+This policy describes the open-source DocMorph project as configured in this repository. **It is not legal advice.** For Microsoft Store and other regulatory obligations in your jurisdiction, consult qualified counsel and [Microsoft Partner Center](https://partner.microsoft.com/) documentation.

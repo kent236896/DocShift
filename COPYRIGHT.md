@@ -13,7 +13,7 @@ Pandoc is bundled under the **GNU General Public License, version 2 or later**. 
 
 ## Privacy
 
-See [`PRIVACY.md`](PRIVACY.md). Host the same content at a **public HTTPS URL** and enter that URL in Microsoft Partner Center as your **Privacy policy**.
+See [`PRIVACY.md`](PRIVACY.md) (English). For Partner Center, use the GitHub URL at the top of that file, for example: `https://github.com/kent236896/DocShift/blob/main/PRIVACY.md`
 
 ## Microsoft Store — practical checklist
 

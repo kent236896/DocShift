@@ -1,4 +1,4 @@
-# DocShift
+﻿# DocShift
 
 DocShift 是一个基于 **Tauri 2 + React 18 + TypeScript** 的桌面文档格式转换工具，作为 Pandoc 的本地 GUI 封装：界面列出常用读写格式，其余格式可按 Pandoc 官方读者/写入器名称手动指定。
 
@@ -102,7 +102,7 @@ cargo tauri build
 
 | 用途 | 文件 |
 |------|------|
-| 隐私政策（需提供 **HTTPS 公开链接**） | [`PRIVACY.md`](PRIVACY.md) — 请替换文中 `[Your legal name]`、`[contact email]` 后，将全文托管到你的网站或 GitHub Pages，把该 URL 填到 Partner Center。 |
+| 隐私政策（需提供 **HTTPS 公开链接**） | [`PRIVACY.md`](PRIVACY.md)（英文，可直接用于商店）— Partner Center 填：`https://github.com/kent236896/DocShift/blob/main/PRIVACY.md`（仓库须为 **public**；若改分支名或仓库名请同步改 URL）。 |
 | 第三方与 GPL（Pandoc） | [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) |
 | 本应用版权与分发说明 | [`COPYRIGHT.md`](COPYRIGHT.md) |
 | DocShift 源码许可（默认 MIT） | [`LICENSE`](LICENSE) — 发布前请把版权行改成你的法人或姓名。 |

@@ -7,11 +7,26 @@ dist/
 # Rust / Tauri
 src-tauri/target/
 
-# Pandoc binaries exceed GitHub 100MB limit — place locally per README, never commit
+# Sidecar binaries (large; install locally per README)
 src-tauri/binaries/*.exe
 src-tauri/binaries/pandoc
+src-tauri/binaries/typst
+!src-tauri/binaries/.gitkeep
 
-# Logs & debug
+# MSIX / WinApp (generated at repository root)
+dist-msix/
+*.msix
+*.msixbundle
+devcert.pfx
+*.pfx
+Package.appxmanifest
+/Assets/
+
+# MSI / WiX / NSIS installer outputs
+*.msi
+install.log
+
+# Logs
 *.log
 npm-debug.log*
 pnpm-debug.log*
@@ -29,15 +44,16 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Editor / IDE
+# Editors / IDE
 .idea/
+.vscode/
 *.swp
 *.swo
 *~
 
-# Optional: uncomment if you prefer not to commit VS Code settings
-# .vscode/
+# Cursor (local workspace)
+.cursor/
 
-# Optional: local tooling
+# Tooling caches
 .turbo
 .cache
